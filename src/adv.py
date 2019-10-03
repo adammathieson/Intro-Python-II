@@ -1,10 +1,11 @@
 from room import Room
 
+
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+        "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -21,11 +22,16 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-for i in room:
-    for i in i:
-        print(i)
+# for i in room:
+#     for i in i:
+
+# print(room['outside'])
+
 # for k, v in room.items():
 #     print("{} {}".format(k, v))
+
+# import textwrap
+# print(textwrap.fill("Treasure Chamber, You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.", width=50))
 
 # Link rooms together
 

@@ -15,7 +15,7 @@ class Room:
         self.items.remove(item)
 
     def __str__(self):  # for human consumption
-        r = f"Room (name: {self.name} {self.description})\n"
+        r = f"room (name: {self.name} {self.description})\n"
 
         for i in self.items:
             r += f"    {i}\n"
