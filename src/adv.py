@@ -66,7 +66,6 @@ treasure.set_adj_room('s', 'narrow')
 
 # Adding items to rooms
 outside.add_item('sword')
-outside.add_item('shield')
 foyer.add_item('hammer')
 overlook.add_item('lunch-box')
 narrow.add_item('poison')
@@ -87,35 +86,40 @@ print(foyer.get_adj_room())
 #Start game
 player_name = input("🧙‍♂️ Enter your player name ")
 player = Player(player_name)
-print(player)
+print(player.has_all_items())
 
 #Start in current room
-current = room[player.get_current_room()]
-print("---->", current)
+while player.has_all_items() == False:
+    print(player)
+    current = room[player.get_current_room()]
+    print("---->", current)
+    #Item in room
+    item = current.check_for_items()
 
-#Item in room
-item = current.check_for_items()
-
-if current.check_for_items():
+    if current.check_for_items():
     # print(current.check_for_items())
-    take_item = input("Take item? y/n ")
-    if take_item == 'y':
-        player.take_item(item)
-        current.remove_item(item)
-        print(f"Use your new {item} for good")
-        print('')
+        take_item = input("Take item? y/n ")
+        if take_item == 'y':
+            player.take_item(item)
+            current.remove_item(item)
+            print(f"Use your new {item} for good")
+            print('')
+        else:
+            print("Things probably cursed, I mean why else would someone just leave it here")
+            print('')
+    #Choose a path
     else:
-        print("Things probably cursed, I mean why else would someone just leave it here")
-        print('')
+        dir = input('Choose a direction to travel: [n] North, [e] East, [s] South, [w] West ')
+        choices = current.get_adj_room()
+        for i in choices:
+            if dir in i:
+                for k, v in i.items():
+                    player.set_current_room(v)
+            else:
+                print("Ummm, quest much? Try another direction")
 
-
-
-#Choose a path
-print('Choose a direction to travel: [n] North, [e] East, [s] South, [w] West')
-choices = current.get_adj_room()
-if 'n' in choices:
-    print("Yay! You have somewhere to go", choices[1])
-
+# current = room[player.get_current_room()]
+# print("---->", current)
 
 
 # Write a loop that:

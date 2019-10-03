@@ -2,7 +2,7 @@
 # currently.
 
 class Player:
-    def __init__(self, name, current_room = 'foyer', items = []):
+    def __init__(self, name, current_room = 'outside', items = []):
         self.name = name
         self.current_room = current_room
         self.items = items
@@ -18,6 +18,12 @@ class Player:
 
     def get_current_room(self):
         return self.current_room
+
+    def has_all_items(self):
+        if len(self.items) == 5:
+            return True
+        else:
+            return False
 
     def __str__(self): # for humans
         p = f"Sir {self.name}\n"
