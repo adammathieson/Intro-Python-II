@@ -47,17 +47,23 @@ earlier adventurers. The only exit is to the south."""),
 
 room['outside'].set_adj_room('n', 'foyer')
 room['foyer'].set_adj_room('s', 'outside')
-room['foyer'].set_adj_room('n', 'overlook')
-room['foyer'].set_adj_room('e', 'narrow')
-room['overlook'].set_adj_room('s', 'foyer')
-room['narrow'].set_adj_room('w', 'foyer')
-room['narrow'].set_adj_room('n', 'treasure')
-room['treasure'].set_adj_room('s', 'narrow')
+# room['foyer'].set_adj_room('n', 'overlook')
+# room['foyer'].set_adj_room('e', 'narrow')
+# room['overlook'].set_adj_room('s', 'foyer')
+# room['narrow'].set_adj_room('w', 'foyer')
+# room['narrow'].set_adj_room('n', 'treasure')
+# room['treasure'].set_adj_room('s', 'narrow')
 
 print("----->", room['outside'])
 # print(room['foyer'].get_adj_room())
+outside = room['outside']
 foyer = room['foyer']
+
+outside.add_item('sword')
+foyer.add_item('hammer')
+
 print(foyer)
+print(outside)
 print(foyer.get_adj_room())
 #
 # Main
@@ -74,6 +80,7 @@ print(player)
 current = room[player.get_current_room()]
 print("---->", current)
 choices = current.get_adj_room()
+
 print(choices)
 
 

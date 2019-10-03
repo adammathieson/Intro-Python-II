@@ -2,7 +2,7 @@
 # description attributes.
 
 class Room:
-    def __init__(self, name, description, adj_room ={'n':'','e':'','s':'','w':''}, items = []):
+    def __init__(self, name, description, adj_room =[], items = []):
         self.name = name
         self.description = description
         self.adj_room = adj_room
@@ -11,21 +11,24 @@ class Room:
     def add_item(self, item):
         """Adds an item to this Room items list"""
         self.items.append(item)
-
         
     def remove_item(self, item):
         self.items.remove(item)
 
     def set_adj_room(self, dir, room):
         newRoom = {dir:room}
-        self.adj_room.update(newRoom)
-        # print(self.adj_room)
+        self.adj_room.append(newRoom)
+        print(self.adj_room)
 
     def get_adj_room(self):
-        rooms = []
-        for i in self.adj_room.items():
-            rooms.append(i)
-        return rooms
+        for i in self.adj_room:
+            for k, v in i.items():
+                return(k, v)
+        # rooms = []
+        # for i in self.adj_room.items():
+        #     rooms.append(i)
+        # return rooms
+
         # return self.adj_room
         # for k, v in i in self.adj_room.items():
         #     return f"{v}"
