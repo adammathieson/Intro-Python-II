@@ -24,13 +24,15 @@ class Room:
         self.adj_room.append(newRoom)
 
     def get_adj_room(self):
-        for i in self.adj_room:
-            for k, v in i.items():
-                return(k, v)
         # rooms = []
-        # for i in self.adj_room.items():
-        #     rooms.append(i)
-        # return rooms
+        # for i in self.adj_room:
+        #     for k, v in i.items():
+        #         rooms.append({k, v})
+        #     return rooms
+        rooms = []
+        for i in self.adj_room:
+            rooms.append(i)
+        return rooms
 
         # return self.adj_room
         # for k, v in i in self.adj_room.items():

@@ -45,32 +45,38 @@ earlier adventurers. The only exit is to the south."""),
 # room['narrow'].n_to = room['treasure']
 # room['treasure'].s_to = room['narrow']
 
-room['outside'].set_adj_room('n', 'foyer')
-room['foyer'].set_adj_room('s', 'outside')
-room['foyer'].set_adj_room('n', 'overlook')
-room['foyer'].set_adj_room('e', 'narrow')
-room['overlook'].set_adj_room('s', 'foyer')
-room['narrow'].set_adj_room('w', 'foyer')
-room['narrow'].set_adj_room('n', 'treasure')
-room['treasure'].set_adj_room('s', 'narrow')
-
-# print("----->", room['outside'])
-# print(room['foyer'].get_adj_room())
 outside = room['outside']
 foyer = room['foyer']
 overlook = room['overlook']
 narrow = room['narrow']
 treasure = room['treasure']
 
+
+outside.set_adj_room('n', 'foyer')
+foyer.set_adj_room('s', 'outside')
+foyer.set_adj_room('n', 'overlook')
+foyer.set_adj_room('e', 'narrow')
+overlook.set_adj_room('s', 'foyer')
+narrow.set_adj_room('w', 'foyer')
+narrow.set_adj_room('n', 'treasure')
+treasure.set_adj_room('s', 'narrow')
+
+# print("----->", room['outside'])
+# print(room['foyer'].get_adj_room())
+
 # Adding items to rooms
 outside.add_item('sword')
+outside.add_item('shield')
 foyer.add_item('hammer')
 overlook.add_item('lunch-box')
 narrow.add_item('poison')
 treasure.add_item('sandwich')
 
-print(treasure)
-print(foyer)
+print(outside)
+print(foyer.get_adj_room())
+
+# print(treasure)
+# print(foyer)
 # print(outside)
 # print(foyer.get_adj_room())
 #
@@ -87,14 +93,28 @@ print(player)
 current = room[player.get_current_room()]
 print("---->", current)
 
+#Item in room
+item = current.check_for_items()
+
 if current.check_for_items():
-    print(current.check_for_items())
-    # input("Take item")
+    # print(current.check_for_items())
+    take_item = input("Take item? y/n ")
+    if take_item == 'y':
+        player.take_item(item)
+        current.remove_item(item)
+        print(f"Use your new {item} for good")
+        print('')
+    else:
+        print("Things probably cursed, I mean why else would someone just leave it here")
+        print('')
 
+
+
+#Choose a path
+print('Choose a direction to travel: [n] North, [e] East, [s] South, [w] West')
 choices = current.get_adj_room()
-
-
-print(choices)
+if 'n' in choices:
+    print("Yay! You have somewhere to go", choices[1])
 
 
 

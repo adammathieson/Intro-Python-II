@@ -2,7 +2,7 @@
 # currently.
 
 class Player:
-    def __init__(self, name, current_room = 'outside', items = []):
+    def __init__(self, name, current_room = 'foyer', items = []):
         self.name = name
         self.current_room = current_room
         self.items = items
