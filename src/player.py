@@ -20,7 +20,7 @@ class Player:
         return self.current_room
 
     def __str__(self): # for humans
-        p = f"Player name: {self.name}\n"
+        p = f"Sir {self.name}\n"
 
         for i in self.items:
             p += f"    {i}\n"

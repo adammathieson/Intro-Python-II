@@ -2,11 +2,11 @@
 # description attributes.
 
 class Room:
-    def __init__(self, name, description, adj_room =[], items = []):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.adj_room = adj_room
-        self.items = items
+        self.adj_room = []
+        self.items = []
 
     def add_item(self, item):
         """Adds an item to this Room items list"""
@@ -15,10 +15,13 @@ class Room:
     def remove_item(self, item):
         self.items.remove(item)
 
+    def check_for_items(self):
+        for i in self.items:
+            return i
+
     def set_adj_room(self, dir, room):
         newRoom = {dir:room}
         self.adj_room.append(newRoom)
-        print(self.adj_room)
 
     def get_adj_room(self):
         for i in self.adj_room:
@@ -38,9 +41,8 @@ class Room:
         r = f"{self.name}--  {self.description}\n"
 
         for i in self.items:
-            r += f"    {i}\n"
+            r += f"    You see a {i} sitting nearby\n"
         return r
 
     def __repr__(self):  # for programmer consumption
-        #return f'Store("{self.store_type}")'
         return f'Room({repr(self.name)},{repr(self.description)},{repr(self.items)})'

@@ -47,39 +47,52 @@ earlier adventurers. The only exit is to the south."""),
 
 room['outside'].set_adj_room('n', 'foyer')
 room['foyer'].set_adj_room('s', 'outside')
-# room['foyer'].set_adj_room('n', 'overlook')
-# room['foyer'].set_adj_room('e', 'narrow')
-# room['overlook'].set_adj_room('s', 'foyer')
-# room['narrow'].set_adj_room('w', 'foyer')
-# room['narrow'].set_adj_room('n', 'treasure')
-# room['treasure'].set_adj_room('s', 'narrow')
+room['foyer'].set_adj_room('n', 'overlook')
+room['foyer'].set_adj_room('e', 'narrow')
+room['overlook'].set_adj_room('s', 'foyer')
+room['narrow'].set_adj_room('w', 'foyer')
+room['narrow'].set_adj_room('n', 'treasure')
+room['treasure'].set_adj_room('s', 'narrow')
 
-print("----->", room['outside'])
+# print("----->", room['outside'])
 # print(room['foyer'].get_adj_room())
 outside = room['outside']
 foyer = room['foyer']
+overlook = room['overlook']
+narrow = room['narrow']
+treasure = room['treasure']
 
+# Adding items to rooms
 outside.add_item('sword')
 foyer.add_item('hammer')
+overlook.add_item('lunch-box')
+narrow.add_item('poison')
+treasure.add_item('sandwich')
 
+print(treasure)
 print(foyer)
-print(outside)
-print(foyer.get_adj_room())
+# print(outside)
+# print(foyer.get_adj_room())
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+#Start game
 player_name = input("🧙‍♂️ Enter your player name ")
 player = Player(player_name)
-
-# print(player1.get_current_room())
-# player1.take_item('Hammer')
-# player1.take_item('Shield')
 print(player)
+
+#Start in current room
 current = room[player.get_current_room()]
 print("---->", current)
+
+if current.check_for_items():
+    print(current.check_for_items())
+    # input("Take item")
+
 choices = current.get_adj_room()
+
 
 print(choices)
 
