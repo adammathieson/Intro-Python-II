@@ -7,6 +7,12 @@ class Player:
         self.current_room = current_room
         self.items = items
 
+    def take_item(self, item):
+        self.items.append(item)
+        
+    def remove_item(self, item):
+        self.items.remove(item)
+
     def set_current_room(self, room):
         self.current_room = room
 
@@ -14,7 +20,7 @@ class Player:
         return self.current_room
 
     def __str__(self): # for humans
-        p = f"Player (name: {self.name})\n"
+        p = f"Player name: {self.name}\n"
 
         for i in self.items:
             p += f"    {i}\n"
