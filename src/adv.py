@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from threading import Timer
 
 
 # Declare all the rooms
@@ -20,7 +21,7 @@ to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south... but wait... what's that?"""),
 }
 
 # for i in room:
@@ -45,13 +46,14 @@ earlier adventurers. The only exit is to the south."""),
 # room['narrow'].n_to = room['treasure']
 # room['treasure'].s_to = room['narrow']
 
+# Set Rooms to variables
 outside = room['outside']
 foyer = room['foyer']
 overlook = room['overlook']
 narrow = room['narrow']
 treasure = room['treasure']
 
-
+#Set adjacent rooms
 outside.set_adj_room('n', 'foyer')
 foyer.set_adj_room('s', 'outside')
 foyer.set_adj_room('n', 'overlook')
@@ -61,18 +63,23 @@ narrow.set_adj_room('w', 'foyer')
 narrow.set_adj_room('n', 'treasure')
 treasure.set_adj_room('s', 'narrow')
 
-# print("----->", room['outside'])
-# print(room['foyer'].get_adj_room())
-
 # Adding items to rooms
-outside.add_item('sword')
-foyer.add_item('hammer')
+# ***Warning*** if you add items to rooms,
+# be sure to increase has_all_items condition
+# in player.py
+outside.add_item('comb')
+outside.add_item('spoon')
+foyer.add_item('sword')
 overlook.add_item('lunch-box')
-narrow.add_item('poison')
+narrow.add_item('hammer')
 treasure.add_item('sandwich')
 
-print(outside)
-print(foyer.get_adj_room())
+def end():
+    print('')
+    print("\n☠️️️ 💀 ☠️️️ You died doing what you love - looking for items. 💀 ☠️ 💀 ")
+
+# print(outside)
+# print(foyer.get_adj_room())
 
 # print(treasure)
 # print(foyer)
@@ -84,32 +91,54 @@ print(foyer.get_adj_room())
 
 # Make a new player object that is currently in the 'outside' room.
 #Start game
-player_name = input("🧙‍♂️ Enter your player name ")
+
+t = Timer(60.0, end)
+t.start() # 60 seconds till certian death
+print("\nWelcome great hero, hurry! there's no time to waist, adventure awaits... also, you have 60 seconds until you die, so let's get to it!")
+print('')
+print('Find all the items and you should be fine,\nGood luck')
+print("\nPlease may I know your name?")
+
+player_name = input("\n🧙‍♂️ Enter your name ")
 player = Player(player_name)
-print(player.has_all_items())
+# print(player.has_all_items())
 
 #Start in current room
-while player.has_all_items() == False:
+while player.has_all_items() == False and t != 0:
+    print("")
     print(player)
     current = room[player.get_current_room()]
     print("---->", current)
     #Item in room
-    item = current.check_for_items()
+    items = current.check_for_items()
+    # print(items)
+    
 
     if current.check_for_items():
     # print(current.check_for_items())
-        take_item = input("Take item? y/n ")
-        if take_item == 'y':
-            player.take_item(item)
-            current.remove_item(item)
-            print(f"Use your new {item} for good")
-            print('')
+        action = input("Take item(s)? y/n ")
+        if action == 'y':
+            for i in items:
+                player.take_item(i)
+                current.remove_item(i)
+                print('')
+                print(f"Use your new {items} for good")
+                print('')
         else:
             print("Things probably cursed, I mean why else would someone just leave it here")
             print('')
+            dir = input('^^^Choose a direction to travel: [n] North, [e] East, [s] South, [w] West ')
+            print('')
+            choices = current.get_adj_room()
+            for i in choices:
+                if dir in i:
+                    for k, v in i.items():
+                        player.set_current_room(v)
+                else:
+                    print("Ummm, quest much? Try another direction")
     #Choose a path
     else:
-        dir = input('Choose a direction to travel: [n] North, [e] East, [s] South, [w] West ')
+        dir = input('^^^Choose a direction to travel: [n] North, [e] East, [s] South, [w] West ')
         choices = current.get_adj_room()
         for i in choices:
             if dir in i:
@@ -117,9 +146,13 @@ while player.has_all_items() == False:
                     player.set_current_room(v)
             else:
                 print("Ummm, quest much? Try another direction")
-
+if t != 0:
+    print("* * * Congratulations! * * * \nYou've successfully collected all the items ")
+else:
+    end()
 # current = room[player.get_current_room()]
 # print("---->", current)
+
 
 
 # Write a loop that:

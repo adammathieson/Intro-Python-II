@@ -16,8 +16,8 @@ class Room:
         self.items.remove(item)
 
     def check_for_items(self):
-        for i in self.items:
-            return i
+        # for i in self.items:
+        return self.items
 
     def set_adj_room(self, dir, room):
         newRoom = {dir:room}
@@ -27,7 +27,7 @@ class Room:
         # rooms = []
         # for i in self.adj_room:
         #     for k, v in i.items():
-        #         rooms.append({k, v})
+        #         rooms.append({k, v}
         #     return rooms
         rooms = []
         for i in self.adj_room:

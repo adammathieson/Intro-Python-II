@@ -20,7 +20,7 @@ class Player:
         return self.current_room
 
     def has_all_items(self):
-        if len(self.items) == 5:
+        if len(self.items) == 6:
             return True
         else:
             return False
@@ -29,7 +29,7 @@ class Player:
         p = f"Sir {self.name}\n"
 
         for i in self.items:
-            p += f"    {i}\n"
+            p += f"    +{i}\n"
 
         return p
 
